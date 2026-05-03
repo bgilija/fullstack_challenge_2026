@@ -1,0 +1,348 @@
+/* ── RESET & ROOT ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0a0a14;
+  --panel:    #12122a;
+  --panel2:   #1c1c3a;
+  --border:   #3a3a8a;
+  --text:     #d8d8f0;
+  --dim:      #7070a0;
+  --gold:     #ffcc00;
+  --hp-hi:    #00bb44;
+  --hp-mid:   #bbaa00;
+  --hp-lo:    #cc2222;
+  --hp-bg:    #111122;
+  --physical: #dd7700;
+  --magic:    #9900cc;
+  --buff:     #0088cc;
+  --debuff:   #cc2222;
+  --heal:     #00bb44;
+}
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  outline: none;
+}
+button:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ── LAYOUT ───────────────────────────────────────────────── */
+.screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 600px;
+  background: var(--panel);
+  border: 2px solid var(--border);
+  padding: 16px;
+}
+
+.panel-title {
+  color: var(--gold);
+  font-size: 13px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
+
+/* ── BUTTONS ──────────────────────────────────────────────── */
+.btn {
+  border: 2px solid var(--gold);
+  background: var(--panel);
+  color: var(--gold);
+  padding: 8px 16px;
+}
+.btn:hover:not(:disabled) { background: var(--gold); color: var(--bg); }
+
+.btn-sm {
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+  padding: 5px 10px;
+}
+.btn-sm:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+
+/* ── HP BAR ───────────────────────────────────────────────── */
+.hp-row { display: flex; align-items: center; gap: 8px; }
+.hp-bar { flex: 1; height: 8px; background: var(--hp-bg); border: 1px solid #333; }
+.hp-fill { height: 100%; }
+.hp-text { color: var(--dim); white-space: nowrap; font-size: 9px; }
+
+/* ── TYPE BADGE ───────────────────────────────────────────── */
+.type-badge {
+  font-size: 8px;
+  border: 1px solid currentColor;
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+.type-badge.physical { color: var(--physical); }
+.type-badge.magic    { color: var(--magic); }
+
+/* ── BUFF TAG ─────────────────────────────────────────────── */
+.buff-tag {
+  font-size: 8px;
+  border: 1px solid currentColor;
+  padding: 1px 4px;
+  margin: 1px 2px 1px 0;
+  display: inline-block;
+}
+.buff-tag.pos { color: var(--buff); }
+.buff-tag.neg { color: var(--debuff); }
+
+/* ── SPRITE ───────────────────────────────────────────────── */
+.sprite {
+  width: 64px;
+  height: 64px;
+  border: 2px solid var(--border);
+  background: #080810;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+.sprite img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* ── MAIN MENU ────────────────────────────────────────────── */
+.main-menu { text-align: center; }
+.main-menu h1 { color: var(--gold); font-size: 16px; margin-bottom: 20px; }
+.main-menu .tagline { color: var(--dim); font-size: 9px; margin-bottom: 28px; }
+.main-menu .btn { display: inline-block; font-size: 11px; padding: 12px 24px; }
+
+/* ── RUN MAP ──────────────────────────────────────────────── */
+.hero-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-details { flex: 1; }
+.hero-details h2 { color: var(--gold); font-size: 11px; margin-bottom: 6px; }
+.hero-stats-row { display: flex; gap: 14px; color: var(--dim); font-size: 8px; margin-bottom: 8px; }
+.xp-label { font-size: 8px; color: var(--dim); margin-bottom: 3px; }
+
+.equipped-section { margin-bottom: 14px; }
+.equipped-section h3 { font-size: 9px; color: var(--dim); margin-bottom: 8px; }
+.equipped-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.equipped-move {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8px;
+}
+
+.encounter-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+
+.encounter {
+  border: 1px solid var(--border);
+  background: var(--panel2);
+}
+.encounter.enc-next  { border-color: var(--gold); }
+.encounter.enc-locked{ opacity: 0.35; }
+
+/* Clickable header row */
+.enc-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+}
+.enc-header:hover { background: rgba(255,204,0,0.05); }
+.enc-locked .enc-header:hover { background: none; }
+
+.enc-num    { color: var(--dim); font-size: 9px; width: 14px; flex-shrink: 0; }
+.enc-sprite { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.enc-sprite img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+.enc-info   { flex: 1; }
+.enc-name   { font-size: 9px; margin-bottom: 3px; }
+.enc-stats  { font-size: 8px; color: var(--dim); }
+.enc-tag    { font-size: 8px; border: 1px solid currentColor; padding: 1px 5px; }
+.enc-tag.defeated { color: var(--hp-hi); }
+.enc-tag.fight    { color: var(--gold); }
+.enc-tag.locked   { color: var(--dim); }
+
+/* Move list inside each encounter */
+.enc-moves {
+  border-top: 1px solid var(--border);
+  padding: 6px 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.enc-move-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 8px;
+}
+.enc-move-name { color: var(--text); min-width: 90px; }
+.enc-move-desc { color: var(--dim); flex: 1; }
+
+.map-actions { display: flex; gap: 8px; }
+
+/* ── BATTLE SCREEN ────────────────────────────────────────── */
+.battle-screen {}
+.battle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.battle-header span { color: var(--dim); font-size: 9px; }
+
+.char-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.char-row.enemy { flex-direction: row-reverse; text-align: right; }
+.char-row.enemy .buffs-row { justify-content: flex-end; }
+.char-info-col { flex: 1; }
+.char-name { color: var(--gold); font-size: 10px; margin-bottom: 6px; }
+.buffs-row { display: flex; flex-wrap: wrap; min-height: 16px; margin-top: 4px; }
+
+.battle-log {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  min-height: 80px;
+}
+.log-line { font-size: 8px; color: var(--dim); margin-bottom: 2px; }
+.log-line.latest { color: var(--text); }
+
+.move-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+  position: relative;
+}
+.move-btn {
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+  padding: 8px 10px;
+  text-align: left;
+}
+.move-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+.move-btn-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+.move-btn-name { font-size: 9px; }
+.move-btn-desc { font-size: 7px; color: var(--dim); }
+.cat-label { font-size: 7px; }
+.cat-label.damage   { color: var(--physical); }
+.cat-label.buff     { color: var(--buff); }
+.cat-label.debuff   { color: var(--debuff); }
+.cat-label.heal     { color: var(--heal); }
+
+.processing-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,10,20,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: var(--dim);
+}
+
+/* ── MOVE MANAGER ─────────────────────────────────────────── */
+.mm-hint { font-size: 8px; color: var(--dim); margin-bottom: 12px; min-height: 16px; }
+.mm-section { font-size: 8px; color: var(--dim); margin-bottom: 6px; }
+.slot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px; }
+.slot-btn {
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+  padding: 8px;
+  text-align: left;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+}
+.slot-btn:hover { border-color: var(--gold); }
+.slot-btn.selected { border-color: var(--gold); background: #1a1a10; color: var(--gold); }
+.slot-num { color: var(--dim); font-size: 8px; width: 12px; flex-shrink: 0; }
+.learned-list { display: flex; flex-direction: column; gap: 5px; max-height: 280px; overflow-y: auto; }
+.learned-btn {
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+  padding: 8px;
+  text-align: left;
+  cursor: default;
+}
+.learned-btn.pickable { cursor: pointer; }
+.learned-btn.pickable:hover { border-color: var(--gold); }
+.learned-btn.equipped { border-color: #446644; }
+.lm-top { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 3px; }
+.lm-name { font-size: 9px; }
+.lm-desc { font-size: 7px; color: var(--dim); }
+.eq-tag { font-size: 7px; border: 1px solid var(--hp-hi); color: var(--hp-hi); padding: 1px 4px; margin-left: auto; }
+.mm-footer { display: flex; justify-content: flex-end; margin-top: 12px; }
+
+/* ── POST BATTLE ──────────────────────────────────────────── */
+.post-battle { text-align: center; }
+.post-title { font-size: 18px; margin-bottom: 12px; }
+.post-title.win  { color: var(--gold); }
+.post-title.loss { color: var(--hp-lo); }
+.post-subtitle { font-size: 9px; color: var(--dim); margin-bottom: 16px; }
+.reward-box {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  padding: 10px;
+  margin-bottom: 14px;
+  font-size: 9px;
+}
+.reward-row { display: flex; justify-content: space-between; padding: 3px 0; }
+.xp-val { color: var(--gold); }
+.lv-val { color: var(--hp-hi); }
+.learned-box {
+  background: var(--panel2);
+  border: 1px solid var(--gold);
+  padding: 10px;
+  margin-bottom: 14px;
+}
+.learned-box h3 { color: var(--gold); font-size: 9px; margin-bottom: 6px; }
+.learned-box .move-name-lg { font-size: 11px; margin-bottom: 4px; }
+.learned-box p { font-size: 8px; color: var(--dim); }
+.post-actions { display: flex; gap: 8px; justify-content: center; }
+
+/* ── VICTORY ──────────────────────────────────────────────── */
+.victory { text-align: center; }
+.victory h1 { color: var(--gold); font-size: 16px; margin-bottom: 16px; }
+.victory p { font-size: 9px; color: var(--dim); margin-bottom: 20px; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 16px; }
+.stat-cell { background: var(--panel2); border: 1px solid var(--border); padding: 8px; }
+.stat-cell .label { font-size: 7px; color: var(--dim); margin-bottom: 4px; }
+.stat-cell .value { font-size: 13px; color: var(--gold); }
