@@ -1,4 +1,4 @@
-# The Knighthmares
+# The Knightmares
 
 A turn-based RPG where a Knight fights through a gauntlet of 5 monsters. Beat them all, steal their moves, survive.
 
